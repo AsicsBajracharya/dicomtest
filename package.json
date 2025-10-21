@@ -12,6 +12,7 @@
   "dependencies": {
     "@cornerstonejs/core": "^4.5.19",
     "@cornerstonejs/dicom-image-loader": "^4.5.19",
+    "@cornerstonejs/tools": "^4.5.19",
     "@originjs/vite-plugin-commonjs": "^1.0.3",
     "dicom-parser": "^1.8.21",
     "jszip": "^3.10.1",
