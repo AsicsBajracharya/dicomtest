@@ -23,6 +23,7 @@ import {
   WindowLevelTool,
   PanTool,
   ZoomTool,
+  init as toolsInit
 } from '@cornerstonejs/tools';
 
 import dicomMetaDataProvider from "@cornerstonejs/dicom-image-loader/wadouri/metaData/metaDataProvider";
@@ -54,6 +55,7 @@ function App() {
           console.log("DICOM Loader initialized ✅");
         }
         
+        await toolsInit();
         // Only add metadata provider if not already added
         try {
           metaData.addProvider(dicomMetaDataProvider, 10000);
@@ -315,10 +317,10 @@ function App() {
     bindings: [{ mouseButton: csToolsEnums.MouseBindings.Primary }],
   });
   toolGroup.setToolActive(ZoomTool.toolName, {
-    bindings: [{ mouseButton: csToolsEnums.MouseBindings.Secondary }],
+    bindings: [{ mouseButton: (csToolsEnums.MouseBindings as any).Wheel }],
   });
   toolGroup.setToolActive(PanTool.toolName, {
-    bindings: [{ mouseButton: csToolsEnums.MouseBindings.Auxiliary }],
+    bindings: [{ mouseButton: csToolsEnums.MouseBindings.Primary, modifierKey: csToolsEnums.KeyboardBindings?.Alt as any }],
   });
     console.log("🩻 All orthogonal views rendered successfully");
   }
@@ -345,10 +347,12 @@ function App() {
           </div>
           <div
             ref={axialRef}
+            onContextMenu={(e) => e.preventDefault()}
             style={{
               height: "70vh",
               background: "#000",
               border: "1px solid #333",
+              touchAction: "none",
             }}
           />
         </div>
@@ -358,10 +362,12 @@ function App() {
           </div>
           <div
             ref={corRef}
+            onContextMenu={(e) => e.preventDefault()}
             style={{
               height: "70vh",
               background: "#000",
               border: "1px solid #333",
+              touchAction: "none",
             }}
           />
         </div>
@@ -371,10 +377,12 @@ function App() {
           </div>
           <div
             ref={sagRef}
+            onContextMenu={(e) => e.preventDefault()}
             style={{
               height: "70vh",
               background: "#000",
               border: "1px solid #333",
+              touchAction: "none",
             }}
           />
         </div>
